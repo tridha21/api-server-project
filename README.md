@@ -182,7 +182,7 @@ A simple **User Management API** that allows registering, authenticating, viewin
    ```bash
    git clone https://github.com/tridha21/api-server-project.git
    
-2. Create your database
+2. **Create your database**
 ```
 Make sure your MySQL service is running and the database is correctly configured in application.properties.
 ```
