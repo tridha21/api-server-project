@@ -183,9 +183,9 @@ A simple **User Management API** that allows registering, authenticating, viewin
    git clone https://github.com/tridha21/api-server-project.git
    
 2. **Create your database**
-```
-Make sure your MySQL service is running and the database is correctly configured in application.properties.
-```
+   ```
+   Make sure your MySQL service is running and the database is correctly configured in application.properties.
+   ```
 ---
 ## 🎉 Congratulations!! Now the project will be ready to run in your browser. Brew your coffee ☕ and have fun!! 😊
 
