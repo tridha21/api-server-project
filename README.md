@@ -184,5 +184,7 @@ A simple **User Management API** that allows registering, authenticating, viewin
 
 • Create your database
 
+---
+
 🎉Congratulations!! Now the project will free to run in your browser. Brew your coffee☕ and have fun!!😊
 
