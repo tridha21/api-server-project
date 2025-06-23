@@ -166,6 +166,7 @@ A simple **User Management API** that allows registering, authenticating, viewin
       mvn clean test
     
       ```
+  ---
 ## 📈 Code Coverage
 
 Test coverage was measured using **JaCoCo**, and tests were executed using **Surefire** (`mvn test`).
