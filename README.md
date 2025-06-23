@@ -167,7 +167,7 @@ A simple **User Management API** that allows registering, authenticating, viewin
     
     
   ---
-## 📈 Code Coverage
+## 📈 Testing & Code Coverage
 
 Test coverage was measured using **JaCoCo**, and tests were executed using **Surefire** (`mvn test`).
 
