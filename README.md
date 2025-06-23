@@ -1,43 +1,7 @@
 # API Server Project
 
-A simple **User Management API** that allows registering, authenticating, viewing, updating, and deleting users. It also includes a frontend UI using Thymeleaf or JSP templates.
-
----
-
-## 📦 Entity: User
-
-| Field     | Type   | Description                       |
-|-----------|--------|-----------------------------------|
-| id        | int    | Unique identifier (Primary Key)   |
-| name      | string | Name of the user                  |
-| username  | string | Username (must be unique)         |
-| email     | string | Email address (must be unique)    |
-| password  | string | Password                          |
-
----
-
 ## 🌐 Base URL
- http://localhost:1012/users
-# API Server Project
-
-A simple **User Management API** that allows registering, authenticating, viewing, updating, and deleting users. It also includes a frontend UI using Thymeleaf or JSP templates.
-
----
-
-## 📦 Entity: User
-
-| Field     | Type   | Description                       |
-|-----------|--------|-----------------------------------|
-| id        | int    | Unique identifier (Primary Key)   |
-| name      | string | Name of the user                  |
-| username  | string | Username (must be unique)         |
-| email     | string | Email address (must be unique)    |
-| password  | string | Password                          |
-
----
-
-## 🌐 Base URL
-`# API Server Project
+`# API Server Project`
 
 A simple **User Management API** that allows registering, authenticating, viewing, updating, and deleting users. It also includes a frontend UI using Thymeleaf or JSP templates.
 
@@ -58,8 +22,6 @@ A simple **User Management API** that allows registering, authenticating, viewin
 ## 🌐 Base URL
 
 `http://localhost:1012/users`
-
-
 ---
 
 ## 🔁 API Endpoints
