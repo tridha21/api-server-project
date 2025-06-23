@@ -17,8 +17,8 @@ A simple **User Management API** that allows registering, authenticating, viewin
 ---
 
 ## 🌐 Base URL
-
-`# API Server Project
+ http://localhost:1012/users
+# API Server Project
 
 A simple **User Management API** that allows registering, authenticating, viewing, updating, and deleting users. It also includes a frontend UI using Thymeleaf or JSP templates.
 
