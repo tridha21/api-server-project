@@ -162,10 +162,10 @@ A simple **User Management API** that allows registering, authenticating, viewin
    mvn spring-boot
    ```
 ## 🧪 How to Run Tests
-      ```
+      
       mvn clean test
     
-      ```
+    
   ---
 ## 📈 Code Coverage
 
