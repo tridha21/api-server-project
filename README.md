@@ -173,8 +173,17 @@ A simple **User Management API** that allows registering, authenticating, viewin
 - Thymeleaf or JSP
 - MySQL
 - Maven
-
+- JUnit 5
+- Mockito
+- Spring MVC Test (MockMvc)
+- JaCoCo
 ---
+
+## 📌 Features
+- Signup and login (JSON & Form)
+- User CRUD: Get, Create, Update, Delete
+- Login validation
+- Admin dashboard (optional frontend)
 
 ## 🚀 How to Run
 
@@ -186,6 +195,33 @@ A simple **User Management API** that allows registering, authenticating, viewin
    ```
    Make sure your MySQL service is running and the database is correctly configured in application.properties.
    ```
+3. **Run the server:**
+   ```
+   mvn spring-boot
+   ```
+## 🧪 How to Run Tests
+   ```
+   mvn clean test
+   ```
+## 📈 Code Coverage
+
+Test coverage was measured using **JaCoCo**, and tests were executed using **Surefire** (`mvn test`).
+
+### ✅ Unit Test Coverage
+
+Unit tests were written using **JUnit** and **Mockito** to cover core business logic and service layer behavior.
+
+![Unit Test Coverage](assets/code_cover.png)
+
+### ✅ API Test Coverage
+
+API tests were executed using **MockMvc** inside Spring Boot and verified using **Surefire**.
+
+Coverage was then analyzed using **JaCoCo**.
+
+![API Test Coverage](assets/api_cover.png)
+
+   
 ---
 ## 🎉 Congratulations!! Now the project will be ready to run in your browser. Brew your coffee ☕ and have fun!! 😊
 
