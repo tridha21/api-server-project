@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>User Management App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <base href="/" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: #000;
+            color: #fff;
+        }
+        .hidden { display: none !important; }
+        .auth-container, .dashboard-container { padding: 2rem; }
+        .auth-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .form-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+            border-radius: 20px;
+            padding: 2rem;
+            width: 350px;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 0 25px rgba(255, 165, 0, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+        input, button {
+            width: 100%;
+            padding: 0.8rem;
+            margin: 0.5rem 0;
+            border-radius: 10px;
+            border: none;
+        }
+        input {
+            background: rgba(255,255,255,0.15);
+            color: #fff;
+        }
+        input::placeholder { color: #ccc; }
+        button {
+            background: linear-gradient(to right, #ff6f00, #ffb347);
+            color: #000;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        h1, h2 { text-align: center; color: #FFAC1C; }
+        .tab-switch { margin: 1rem 0; }
+        .tab-label {
+            padding: 0.5rem 1rem;
+            margin: 0 0.5rem;
+            border-radius: 20px;
+            cursor: pointer;
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+        }
+        .tab-label.active {
+            background: linear-gradient(to right, #ff6f00, #ffb347);
+            color: #000;
+        }
+        table {
+            width: 100%;
+            margin-top: 1rem;
+            border-collapse: collapse;
+            background: rgba(255,255,255,0.03);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        th, td {
+            padding: 0.75rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            text-align: left;
+        }
+        th { color: #FFAC1C; }
+        .action-buttons button {
+            margin-right: 0.5rem;
+            padding: 0.3rem 0.6rem;
+            font-size: 1rem;
+        }
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+        .top-bar input { max-width: 200px; }
+        @media (max-width: 768px) {
+            .top-bar { flex-direction: column; gap: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+<section id="auth-section" class="auth-container">
+    <div class="form-card">
+        <h2>Welcome</h2>
+        <div class="tab-switch">
+            <span id="tab-login" class="tab-label active" onclick="switchTab('login')">Login</span>
+            <span id="tab-signup" class="tab-label" onclick="switchTab('signup')">Sign Up</span>
+        </div>
+
+        <!-- Login Form -->
+        <form id="login-form" onsubmit="handleLogin(event)">
+            <input type="email" id="email" placeholder="Email" required />
+            <input type="password" id="password" placeholder="Password" required />
+            <button type="submit">Login</button>
+        </form>
+
+        <!-- Signup Form -->
+        <form id="signup-form" class="hidden" onsubmit="handleSignup(event)">
+            <input type="text" id="signup-name" placeholder="Full Name" required />
+            <input type="text" id="signup-username" placeholder="Username" required />
+            <input type="email" id="signup-email" placeholder="Email" required />
+            <input type="password" id="signup-password" placeholder="Password" required />
+            <button type="submit">Sign Up</button>
+        </form>
+    </div>
+</section>
+
+<!-- ✅ DASHBOARD SECTION -->
+<section id="dashboard-section" class="hidden dashboard-container">
+    <h1>User Management Dashboard</h1>
+    <div class="top-bar">
+        <div>
+            <button onclick="showForm()">Add User</button>
+            <button onclick="bulkDelete()">Delete Selected</button>
+        </div>
+        <div>
+            <input type="text" id="search" placeholder="Search..." oninput="renderUsers()" />
+        </div>
+    </div>
+    <table>
+        <thead>
+        <tr>
+            <th><input type="checkbox" onclick="toggleAll(this)"></th>
+            <th>Name</th><th>Username</th><th>Email</th><th>Actions</th>
+        </tr>
+        </thead>
+        <tbody id="user-table"></tbody>
+    </table>
+
+    <!-- Add/Edit User Form -->
+    <div id="user-form-modal" class="hidden">
+        <h2 id="form-title">Add User</h2>
+        <form onsubmit="submitUser(event)">
+            <input type="hidden" id="edit-id" />
+            <input type="text" id="form-name" placeholder="Full Name" required />
+            <input type="text" id="form-username" placeholder="Username" required />
+            <input type="email" id="form-email" placeholder="Email" required />
+            <input type="password" id="form-password" placeholder="Password" required />
+            <button type="submit">Submit</button>
+            <button type="button" onclick="hideForm()">Cancel</button>
+        </form>
+    </div>
+</section>
+
+<script>
+    const API = "http://localhost:1012/users";
+    let users = [];
+
+    function switchTab(tab) {
+        document.getElementById("tab-login").classList.remove("active");
+        document.getElementById("tab-signup").classList.remove("active");
+        document.getElementById("login-form").classList.add("hidden");
+        document.getElementById("signup-form").classList.add("hidden");
+        if (tab === "login") {
+            document.getElementById("tab-login").classList.add("active");
+            document.getElementById("login-form").classList.remove("hidden");
+        } else {
+            document.getElementById("tab-signup").classList.add("active");
+            document.getElementById("signup-form").classList.remove("hidden");
+        }
+    }
+
+    function handleLogin(e) {
+        e.preventDefault();
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+
+        fetch(`${API}/login`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password })
+        })
+            .then(async res => {
+                if (res.ok) {
+                    document.getElementById("auth-section").classList.add("hidden");
+                    document.getElementById("dashboard-section").classList.remove("hidden");
+                    loadUsers();
+                } else {
+                    const msg = await res.text();
+                    alert("Login failed: " + msg);
+                }
+            })
+            .catch(err => {
+                alert("Server error. Try again."+err);
+            });
+    }
+
+    function handleSignup(e) {
+        e.preventDefault();
+        const name = document.getElementById("signup-name").value;
+        const username = document.getElementById("signup-username").value;
+        const email = document.getElementById("signup-email").value;
+        const password = document.getElementById("signup-password").value;
+
+        fetch(`${API}/signup`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name, username, email, password })
+        })
+            .then(res => {
+                if (res.ok) {
+                    alert("Signup successful.");
+                    switchTab("login");
+                } else {
+                    alert("Signup failed: User may already exist.");
+                }
+            })
+            .catch(err => {
+                alert("Signup failed. Try again.");
+                console.error(err);
+            });
+    }
+
+    function loadUsers() {
+        fetch(API).then(res => res.json()).then(data => {
+            users = data;
+            renderUsers();
+        });
+    }
+
+    function renderUsers() {
+        const tbody = document.getElementById("user-table");
+        const search = document.getElementById("search").value.toLowerCase();
+        tbody.innerHTML = "";
+        users.filter(u =>
+            u.name.toLowerCase().includes(search) ||
+            u.username.toLowerCase().includes(search) ||
+            u.email.toLowerCase().includes(search)
+        ).forEach(user => {
+            tbody.innerHTML += `
+      <tr>
+        <td><input type="checkbox" value="${user.id}" class="user-check"></td>
+        <td>${user.name}</td>
+        <td>${user.username}</td>
+        <td>${user.email}</td>
+        <td class="action-buttons">
+          <button onclick="editUser(${user.id})">✏️</button>
+          <button onclick="deleteUser(${user.id})">🗑️</button>
+        </td>
+      </tr>`;
+        });
+    }
+
+    function showForm() {
+        document.getElementById("user-form-modal").classList.remove("hidden");
+        document.getElementById("form-title").textContent = "Add User";
+        document.querySelector("#user-form-modal form").reset();
+        document.getElementById("edit-id").value = "";
+    }
+
+    function hideForm() {
+        document.getElementById("user-form-modal").classList.add("hidden");
+    }
+
+    function editUser(id) {
+        const user = users.find(u => u.id === id);
+        if (user) {
+            document.getElementById("edit-id").value = user.id;
+            document.getElementById("form-name").value = user.name;
+            document.getElementById("form-username").value = user.username;
+            document.getElementById("form-email").value = user.email;
+            document.getElementById("form-password").value = "";
+            document.getElementById("form-title").textContent = "Update User";
+            document.getElementById("user-form-modal").classList.remove("hidden");
+        }
+    }
+
+    function submitUser(e) {
+        e.preventDefault();
+        const id = document.getElementById("edit-id").value;
+        const name = document.getElementById("form-name").value;
+        const username = document.getElementById("form-username").value;
+        const email = document.getElementById("form-email").value;
+        const password = document.getElementById("form-password").value;
+
+        const user = { name, username, email, password };
+        const method = id ? "PUT" : "POST";
+        const endpoint = id ? `${API}/${id}` : `${API}/signup`;
+
+        fetch(endpoint, {
+            method,
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(user)
+        }).then(() => {
+            hideForm();
+            loadUsers();
+        });
+    }
+
+    function deleteUser(id) {
+        if (confirm("Are you sure?")) {
+            fetch(`${API}/${id}`, { method: "DELETE" }).then(loadUsers);
+        }
+    }
+
+    function toggleAll(source) {
+        document.querySelectorAll(".user-check").forEach(cb => cb.checked = source.checked);
+    }
+
+    function bulkDelete() {
+        const selected = Array.from(document.querySelectorAll(".user-check:checked"));
+        if (selected.length === 0) return alert("No users selected.");
+        if (confirm("Delete selected users?")) {
+            selected.forEach(cb => {
+                fetch(`${API}/${cb.value}`, { method: "DELETE" });
+            });
+            setTimeout(loadUsers, 500);
+        }
+    }
+</script>
+</body>
+</html>
