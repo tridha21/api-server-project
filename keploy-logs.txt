@@ -1,0 +1,117 @@
+🐰 Keploy: 2025-06-26T23:23:19+05:30 	[34mINFO[0m	config file not found; proceeding with flags only
+🐰 Keploy: 2025-06-26T23:23:19+05:30 	[31mERROR[0m	failed to validate flags	{"error": "missing required -c flag or appCmd in config file"}
+🐰 Keploy: 2025-06-26T23:23:19+05:30 	[31mERROR[0m	Error removing file	{"error": "remove keploy-logs.txt: The process cannot access the file because it is being used by another process."}
+🐰 Keploy: 2025-06-26T23:23:19+05:30 	[31mERROR[0m	Failed to delete Keploy Logs	{"error": "remove keploy-logs.txt: The process cannot access the file because it is being used by another process."}
+🐰 Keploy: 2025-06-26T23:23:28+05:30 	[34mINFO[0m	config file not found; proceeding with flags only
+🐰 Keploy: 2025-06-26T23:23:28+05:30 	[31mERROR[0m	failed to validate flags	{"error": "missing required -c flag or appCmd in config file"}
+🐰 Keploy: 2025-06-26T23:23:28+05:30 	[31mERROR[0m	Error removing file	{"error": "remove keploy-logs.txt: The process cannot access the file because it is being used by another process."}
+🐰 Keploy: 2025-06-26T23:23:28+05:30 	[31mERROR[0m	Failed to delete Keploy Logs	{"error": "remove keploy-logs.txt: The process cannot access the file because it is being used by another process."}
+🐰 Keploy: 2025-06-26T23:26:12+05:30 	[34mINFO[0m	config file not found; proceeding with flags only
+🐰 Keploy: 2025-06-26T23:26:12+05:30 	[34mINFO[0m	Starting keploy in docker with image	{"image:": "ghcr.io/keploy/keploy:v2.6.14"}
+🐰 Keploy: 2025-06-26T23:26:13+05:30 	[34mINFO[0m	Starting keploy in docker with default context, as that is the current context.
+🐰 Keploy: 2025-06-26T18:14:06Z 	[34mINFO[0m	config file not found; proceeding with flags only
+🐰 Keploy: 2025-06-26T18:14:06Z 	[34mINFO[0m	detected that Keploy is running in a docker container
+🐰 Keploy: 2025-06-26T18:14:06Z 	[33mWARN[0m	buildDelay is set to 30, incase your docker container takes more time to build use --buildDelay to set custom delay
+🐰 Keploy: 2025-06-26T18:14:06Z 	[34mINFO[0m	Example usage: keploy record -c "docker-compose up --build" --buildDelay 35
+🐰 Keploy: 2025-06-26T18:14:06Z 	[34mINFO[0m	Using the last directory name as appName : user
+🐰 Keploy: 2025-06-26T18:14:06Z 	[34mINFO[0m	Generated config file based on the flags that are used
+🐰 Keploy: 2025-06-26T18:14:06Z 	[34mINFO[0m	trying to inject network:keploy-network to the keploy container
+🐰 Keploy: 2025-06-26T18:14:06Z 	[34mINFO[0m	Successfully injected network to the keploy container	{"Keploy container": "keploy-v2", "appNetwork": "keploy-network", "keploy container ip": "172.18.0.2"}
+🐰 Keploy: 2025-06-26T18:14:07Z 	[34mINFO[0m	keploy initialized and probes added to the kernel.
+🐰 Keploy: 2025-06-26T18:14:09Z 	[34mINFO[0m	starting UDP DNS server at addr :26789
+🐰 Keploy: 2025-06-26T18:14:09Z 	[34mINFO[0m	starting TCP DNS server at addr :26789
+🐰 Keploy: 2025-06-26T18:14:09Z 	[34mINFO[0m	Keploy has taken control of the DNS resolution mechanism, your application may misbehave if you have provided wrong domain name in your application code.
+🐰 Keploy: 2025-06-26T18:14:09Z 	[34mINFO[0m	Proxy started at port:8080
+🐰 Keploy: 2025-06-26T18:14:09Z 	[34mINFO[0m	Setting a timer of 1m0s for recording
+🐰 Keploy: 2025-06-26T18:14:14Z 	[31mERROR[0m	failed to dial the conn to destination server	{"proxy port": 8080, "server address": "[127.0.0.1]:3306", "error": "dial tcp 127.0.0.1:3306: connect: connection refused"}
+🐰 Keploy: 2025-06-26T18:14:14Z 	[31mERROR[0m	failed to handle the client connection	{"error": "dial tcp 127.0.0.1:3306: connect: connection refused"}
+🐰 Keploy: 2025-06-26T18:14:16Z 	[31mERROR[0m	failed to dial the conn to destination server	{"proxy port": 8080, "server address": "[127.0.0.1]:3306", "error": "dial tcp 127.0.0.1:3306: connect: connection refused"}
+🐰 Keploy: 2025-06-26T18:14:16Z 	[31mERROR[0m	failed to handle the client connection	{"error": "dial tcp 127.0.0.1:3306: connect: connection refused"}
+🐰 Keploy: 2025-06-26T18:14:22Z 	[31mERROR[0m	Application stopped with the error	{"error": "exit status 1"}
+🐰 Keploy: 2025-06-26T18:14:22Z 	[31mERROR[0m	unknown error received from application, hence stopping keploy
+🐰 Keploy: 2025-06-26T18:14:22Z 	[34mINFO[0m	stopping Keploy	{"reason": "unknown error received from application, hence stopping keploy"}
+🐰 Keploy: 2025-06-26T18:14:22Z 	[34mINFO[0m	proxy stopped...
+🐰 Keploy: 2025-06-26T18:14:25Z 	[34mINFO[0m	eBPF resources released successfully...
+🐰 Keploy: 2025-06-26T18:14:25Z 	[31mERROR[0m	failed to record	{"error": "unknown error received from application, hence stopping keploy"}
+🐰 Keploy: 2025-06-26T18:14:25Z 	[31mERROR[0m	Error removing file	{"error": "remove keploy-logs.txt: permission denied"}
+🐰 Keploy: 2025-06-26T18:14:25Z 	[31mERROR[0m	Failed to delete Keploy Logs	{"error": "remove keploy-logs.txt: permission denied"}
+🐰 Keploy: 2025-06-26T23:44:23+05:30 	[34mINFO[0m	exiting the current process as the command is moved to docker
+🐰 Keploy: 2025-06-27T00:17:16+05:30 	[34mINFO[0m	Starting keploy in docker with image	{"image:": "ghcr.io/keploy/keploy:v2.6.14"}
+🐰 Keploy: 2025-06-27T00:17:16+05:30 	[34mINFO[0m	Starting keploy in docker with default context, as that is the current context.
+🐰 Keploy: 2025-06-26T18:47:19Z 	[34mINFO[0m	detected that Keploy is running in a docker container
+🐰 Keploy: 2025-06-26T18:47:19Z 	[33mWARN[0m	buildDelay is set to 30, incase your docker container takes more time to build use --buildDelay to set custom delay
+🐰 Keploy: 2025-06-26T18:47:19Z 	[34mINFO[0m	Example usage: keploy record -c "docker-compose up --build" --buildDelay 35
+🐰 Keploy: 2025-06-26T18:47:19Z 	[33mWARN[0m	given app container:(user-api-container) is different from parsed app container:(user-api), taking parsed value
+🐰 Keploy: 2025-06-26T18:47:19Z 	[34mINFO[0m	trying to inject network:keploy-network to the keploy container
+🐰 Keploy: 2025-06-26T18:47:19Z 	[34mINFO[0m	Successfully injected network to the keploy container	{"Keploy container": "keploy-v2", "appNetwork": "keploy-network", "keploy container ip": "172.18.0.3"}
+🐰 Keploy: 2025-06-26T18:47:20Z 	[34mINFO[0m	keploy initialized and probes added to the kernel.
+🐰 Keploy: 2025-06-26T18:47:22Z 	[34mINFO[0m	starting TCP DNS server at addr :26789
+🐰 Keploy: 2025-06-26T18:47:22Z 	[34mINFO[0m	starting UDP DNS server at addr :26789
+🐰 Keploy: 2025-06-26T18:47:22Z 	[34mINFO[0m	Keploy has taken control of the DNS resolution mechanism, your application may misbehave if you have provided wrong domain name in your application code.
+🐰 Keploy: 2025-06-26T18:47:22Z 	[34mINFO[0m	Proxy started at port:8080
+🐰 Keploy: 2025-06-26T18:47:22Z 	[34mINFO[0m	Setting a timer of 1m0s for recording
+🐰 Keploy: 2025-06-26T18:47:28Z 	[31mERROR[0m	failed to dial the conn to destination server	{"proxy port": 8080, "server address": "[127.0.0.1]:3306", "error": "dial tcp 127.0.0.1:3306: connect: connection refused"}
+🐰 Keploy: 2025-06-26T18:47:28Z 	[31mERROR[0m	failed to handle the client connection	{"error": "dial tcp 127.0.0.1:3306: connect: connection refused"}
+🐰 Keploy: 2025-06-26T18:47:30Z 	[31mERROR[0m	failed to dial the conn to destination server	{"proxy port": 8080, "server address": "[127.0.0.1]:3306", "error": "dial tcp 127.0.0.1:3306: connect: connection refused"}
+🐰 Keploy: 2025-06-26T18:47:30Z 	[31mERROR[0m	failed to handle the client connection	{"error": "dial tcp 127.0.0.1:3306: connect: connection refused"}
+🐰 Keploy: 2025-06-26T18:47:33Z 	[31mERROR[0m	Application stopped with the error	{"error": "exit status 1"}
+🐰 Keploy: 2025-06-26T18:47:33Z 	[31mERROR[0m	unknown error received from application, hence stopping keploy
+🐰 Keploy: 2025-06-26T18:47:33Z 	[34mINFO[0m	stopping Keploy	{"reason": "unknown error received from application, hence stopping keploy"}
+🐰 Keploy: 2025-06-26T18:47:33Z 	[34mINFO[0m	proxy stopped...
+🐰 Keploy: 2025-06-26T18:47:35Z 	[34mINFO[0m	eBPF resources released successfully...
+🐰 Keploy: 2025-06-26T18:47:35Z 	[31mERROR[0m	failed to record	{"error": "unknown error received from application, hence stopping keploy"}
+🐰 Keploy: 2025-06-26T18:47:35Z 	[31mERROR[0m	Error removing file	{"error": "remove keploy-logs.txt: permission denied"}
+🐰 Keploy: 2025-06-26T18:47:35Z 	[31mERROR[0m	Failed to delete Keploy Logs	{"error": "remove keploy-logs.txt: permission denied"}
+🐰 Keploy: 2025-06-27T00:17:36+05:30 	[34mINFO[0m	exiting the current process as the command is moved to docker
+🐰 Keploy: 2025-06-27T00:26:02+05:30 	[34mINFO[0m	Starting keploy in docker with image	{"image:": "ghcr.io/keploy/keploy:v2.6.14"}
+🐰 Keploy: 2025-06-27T00:26:02+05:30 	[34mINFO[0m	Starting keploy in docker with default context, as that is the current context.
+🐰 Keploy: 2025-06-26T18:56:05Z 	[34mINFO[0m	detected that Keploy is running in a docker container
+🐰 Keploy: 2025-06-26T18:56:05Z 	[33mWARN[0m	buildDelay is set to 30, incase your docker container takes more time to build use --buildDelay to set custom delay
+🐰 Keploy: 2025-06-26T18:56:05Z 	[34mINFO[0m	Example usage: keploy record -c "docker-compose up --build" --buildDelay 35
+🐰 Keploy: 2025-06-26T18:56:05Z 	[34mINFO[0m	trying to inject network:keploy-network to the keploy container
+🐰 Keploy: 2025-06-26T18:56:05Z 	[34mINFO[0m	Successfully injected network to the keploy container	{"Keploy container": "keploy-v2", "appNetwork": "keploy-network", "keploy container ip": "172.18.0.3"}
+🐰 Keploy: 2025-06-26T18:56:06Z 	[34mINFO[0m	keploy initialized and probes added to the kernel.
+🐰 Keploy: 2025-06-26T18:56:08Z 	[34mINFO[0m	starting UDP DNS server at addr :26789
+🐰 Keploy: 2025-06-26T18:56:08Z 	[34mINFO[0m	starting TCP DNS server at addr :26789
+🐰 Keploy: 2025-06-26T18:56:08Z 	[34mINFO[0m	Keploy has taken control of the DNS resolution mechanism, your application may misbehave if you have provided wrong domain name in your application code.
+🐰 Keploy: 2025-06-26T18:56:08Z 	[34mINFO[0m	Proxy started at port:16789
+🐰 Keploy: 2025-06-26T18:56:13Z 	[31mERROR[0m	failed to dial the conn to destination server	{"proxy port": 16789, "server address": "[127.0.0.1]:3306", "error": "dial tcp 127.0.0.1:3306: connect: connection refused"}
+🐰 Keploy: 2025-06-26T18:56:13Z 	[31mERROR[0m	failed to handle the client connection	{"error": "dial tcp 127.0.0.1:3306: connect: connection refused"}
+🐰 Keploy: 2025-06-26T18:56:15Z 	[31mERROR[0m	failed to dial the conn to destination server	{"proxy port": 16789, "server address": "[127.0.0.1]:3306", "error": "dial tcp 127.0.0.1:3306: connect: connection refused"}
+🐰 Keploy: 2025-06-26T18:56:15Z 	[31mERROR[0m	failed to handle the client connection	{"error": "dial tcp 127.0.0.1:3306: connect: connection refused"}
+🐰 Keploy: 2025-06-26T18:56:18Z 	[31mERROR[0m	Application stopped with the error	{"error": "exit status 1"}
+🐰 Keploy: 2025-06-26T18:56:18Z 	[31mERROR[0m	unknown error received from application, hence stopping keploy
+🐰 Keploy: 2025-06-26T18:56:18Z 	[34mINFO[0m	stopping Keploy	{"reason": "unknown error received from application, hence stopping keploy"}
+🐰 Keploy: 2025-06-26T18:56:18Z 	[34mINFO[0m	proxy stopped...
+🐰 Keploy: 2025-06-26T18:56:20Z 	[34mINFO[0m	eBPF resources released successfully...
+🐰 Keploy: 2025-06-26T18:56:20Z 	[31mERROR[0m	failed to record	{"error": "unknown error received from application, hence stopping keploy"}
+🐰 Keploy: 2025-06-26T18:56:20Z 	[31mERROR[0m	Error removing file	{"error": "remove keploy-logs.txt: permission denied"}
+🐰 Keploy: 2025-06-26T18:56:20Z 	[31mERROR[0m	Failed to delete Keploy Logs	{"error": "remove keploy-logs.txt: permission denied"}
+🐰 Keploy: 2025-06-27T00:26:21+05:30 	[34mINFO[0m	exiting the current process as the command is moved to docker
+🐰 Keploy: 2025-06-27T00:32:59+05:30 	[34mINFO[0m	Starting keploy in docker with image	{"image:": "ghcr.io/keploy/keploy:v2.6.14"}
+🐰 Keploy: 2025-06-27T00:32:59+05:30 	[34mINFO[0m	Starting keploy in docker with default context, as that is the current context.
+🐰 Keploy: 2025-06-26T19:03:00Z 	[34mINFO[0m	detected that Keploy is running in a docker container
+🐰 Keploy: 2025-06-26T19:03:00Z 	[33mWARN[0m	buildDelay is set to 30, incase your docker container takes more time to build use --buildDelay to set custom delay
+🐰 Keploy: 2025-06-26T19:03:00Z 	[34mINFO[0m	Example usage: keploy record -c "docker-compose up --build" --buildDelay 35
+🐰 Keploy: 2025-06-26T19:03:00Z 	[33mWARN[0m	given app container:(user-api-container) is different from parsed app container:(user-api), taking parsed value
+🐰 Keploy: 2025-06-26T19:03:00Z 	[34mINFO[0m	trying to inject network:keploy-network to the keploy container
+🐰 Keploy: 2025-06-26T19:03:01Z 	[34mINFO[0m	Successfully injected network to the keploy container	{"Keploy container": "keploy-v2", "appNetwork": "keploy-network", "keploy container ip": "172.18.0.3"}
+🐰 Keploy: 2025-06-26T19:03:02Z 	[34mINFO[0m	keploy initialized and probes added to the kernel.
+🐰 Keploy: 2025-06-26T19:03:04Z 	[34mINFO[0m	starting UDP DNS server at addr :26789
+🐰 Keploy: 2025-06-26T19:03:04Z 	[34mINFO[0m	starting TCP DNS server at addr :26789
+🐰 Keploy: 2025-06-26T19:03:04Z 	[34mINFO[0m	Keploy has taken control of the DNS resolution mechanism, your application may misbehave if you have provided wrong domain name in your application code.
+🐰 Keploy: 2025-06-26T19:03:04Z 	[34mINFO[0m	Proxy started at port:8080
+🐰 Keploy: 2025-06-26T19:03:04Z 	[34mINFO[0m	Setting a timer of 1m0s for recording
+🐰 Keploy: 2025-06-26T19:03:09Z 	[31mERROR[0m	failed to dial the conn to destination server	{"proxy port": 8080, "server address": "[127.0.0.1]:3306", "error": "dial tcp 127.0.0.1:3306: connect: connection refused"}
+🐰 Keploy: 2025-06-26T19:03:09Z 	[31mERROR[0m	failed to handle the client connection	{"error": "dial tcp 127.0.0.1:3306: connect: connection refused"}
+🐰 Keploy: 2025-06-26T19:03:11Z 	[31mERROR[0m	failed to dial the conn to destination server	{"proxy port": 8080, "server address": "[127.0.0.1]:3306", "error": "dial tcp 127.0.0.1:3306: connect: connection refused"}
+🐰 Keploy: 2025-06-26T19:03:11Z 	[31mERROR[0m	failed to handle the client connection	{"error": "dial tcp 127.0.0.1:3306: connect: connection refused"}
+🐰 Keploy: 2025-06-26T19:03:17Z 	[31mERROR[0m	Application stopped with the error	{"error": "exit status 1"}
+🐰 Keploy: 2025-06-26T19:03:17Z 	[31mERROR[0m	unknown error received from application, hence stopping keploy
+🐰 Keploy: 2025-06-26T19:03:17Z 	[34mINFO[0m	stopping Keploy	{"reason": "unknown error received from application, hence stopping keploy"}
+🐰 Keploy: 2025-06-26T19:03:17Z 	[34mINFO[0m	proxy stopped...
+🐰 Keploy: 2025-06-26T19:03:19Z 	[34mINFO[0m	eBPF resources released successfully...
+🐰 Keploy: 2025-06-26T19:03:19Z 	[31mERROR[0m	failed to record	{"error": "unknown error received from application, hence stopping keploy"}
+🐰 Keploy: 2025-06-26T19:03:19Z 	[31mERROR[0m	Error removing file	{"error": "remove keploy-logs.txt: permission denied"}
+🐰 Keploy: 2025-06-26T19:03:19Z 	[31mERROR[0m	Failed to delete Keploy Logs	{"error": "remove keploy-logs.txt: permission denied"}
+🐰 Keploy: 2025-06-27T00:33:18+05:30 	[34mINFO[0m	exiting the current process as the command is moved to docker

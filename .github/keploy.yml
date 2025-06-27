@@ -1,0 +1,51 @@
+name: Keploy API Test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  keploy-test:
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:8
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: User
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping --silent"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Java
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin'
+        java-version: '17'
+
+    - name: Install keploy
+      run: |
+        curl -s https://deb.keploy.io/install.sh | sudo bash
+
+    - name: Run Keploy in record mode
+      run: |
+        nohup keploy record --proxy-port 8080 --delay 5s &
+
+    - name: Run app
+      run: ./mvnw spring-boot:run
+
+    - name: Run Keploy in test mode
+      run: keploy test

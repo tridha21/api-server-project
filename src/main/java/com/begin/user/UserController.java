@@ -11,11 +11,25 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-@Controller
+//@Controller
+@RestController
 @RequestMapping("/users")
 public class UserController {
 
-    @Autowired
+
+
+    @GetMapping("/ping")
+    public String ping() {
+        return "pong";
+    }
+
+
+
+
+
+
+
+        @Autowired
     private UserService userService;
 
     public UserController(UserService userService) {
@@ -99,6 +113,9 @@ public class UserController {
     public void deleteUser(@PathVariable int id) {
         userService.deleteUserById(id);
     }
+
+
+
 }
 
 

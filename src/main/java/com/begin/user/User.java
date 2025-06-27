@@ -1,8 +1,9 @@
 package com.begin.user;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "User_Data_Tridha")
+@Table(name = "User_Data")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -11,8 +12,13 @@ public class User {
     @Column(name = "name",nullable = false)
     private String name;
 
-    @Column(name = "user_name",nullable = false,unique = true)
+//    @Column(name = "user_name",nullable = false,unique = true)
+//    private String username;
+
+    @JsonProperty("userName")
+    @Column(name = "user_name", nullable = false, unique = true)
     private String username;
+
 
     @Column(name = "email",nullable = false,unique = true)
     private String email;

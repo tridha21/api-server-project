@@ -13,8 +13,10 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public UserService(UserRepository userRepository) {
-    }
+    // DELETE this
+//    public UserService(UserRepository userRepository) {
+
+//    }
 
     public User saveUser(User user) {
         // Added logic to avoid spam domains
@@ -22,20 +24,22 @@ public class UserService {
             throw new IllegalArgumentException("Spam domains are not allowed");
         }
 
-        if (user.getPassword() != null && user.getPassword().length() < 6) {
-            throw new IllegalArgumentException("Password must be at least 6 characters long");
-        }
+//        if (user.getPassword() != null && user.getPassword().length() < 6) {
+//            throw new IllegalArgumentException("Password must be at least 6 characters long");
+//        }
 
         return userRepository.save(user);
     }
 
     public List<User> getAllUsers() {
         List<User> users = userRepository.findAll();
-        if (users.isEmpty()) {
-            throw new IllegalStateException("No users found in database");
-        }
+//        if (users.isEmpty()) {
+//            throw new IllegalStateException("No users found in database");
+//        }
         return users;
     }
+
+
 
     public Optional<User> getUserById(int id) {
         if (id <= 0) {
