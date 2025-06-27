@@ -1,0 +1,64 @@
+name: Keploy API Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  keploy-test:
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:8
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: User
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping --silent"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=10
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Java
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin'
+        java-version: '17'
+
+    - name: Give permission to Maven wrapper
+      run: chmod +x mvnw
+
+    - name: Install Keploy
+      run: |
+        curl -s https://deb.keploy.io/install.sh | sudo bash
+
+    - name: Start Keploy in record mode
+      run: nohup keploy record --proxy-port 8080 --delay 5s &
+
+    - name: Run Spring Boot App in background
+      run: nohup ./mvnw spring-boot:run &
+
+    - name: Wait for App to start
+      run: sleep 40
+
+    - name: Send API requests
+      run: |
+        curl -X POST http://localhost:8080/users/signup \
+        -H "Content-Type: application/json" \
+        -d "{\"name\":\"Lily\",\"email\":\"lily@example.com\",\"userName\":\"lily1234\",\"password\":\"securepass\"}"
+
+        curl http://localhost:8080/users
+
+    - name: Run Keploy Tests
+      run: keploy test
