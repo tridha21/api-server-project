@@ -1,0 +1,4 @@
+echo "# Trigger workflow" >> README.md
+git add README.md
+git commit -m "Trigger CI workflow for Keploy"
+git push origin main
