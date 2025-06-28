@@ -19,13 +19,13 @@ jobs:
           docker network create keploy-network || true
           docker run -d --name user-api \
             --network keploy-network \
-            -p 1012:1012 \
+            -p 8080:8080 \
             user-api
 
-      - name: ⏳ Wait for Server Port to Open (1012)
+      - name: ⏳ Wait for Server Port to Open (8080)
         run: |
-          echo "Waiting for Spring Boot app to start on port 1012..."
-          timeout 60 bash -c 'while ! nc -z localhost 1012; do sleep 2; done'
+          echo "Waiting for Spring Boot app to start on port 8080..."
+          timeout 60 bash -c 'while ! nc -z localhost 8080; do sleep 2; done'
 
       - name: 📄 Show Spring Boot Logs
         run: docker logs user-api
@@ -33,7 +33,7 @@ jobs:
       - name: ❤️ Check Server Health (Optional)
         continue-on-error: true
         run: |
-          until curl -s http://localhost:1012/actuator/health | grep -q UP; do
+          until curl -s http://localhost:8080/actuator/health | grep -q UP; do
             echo "Waiting for /actuator/health..."
             sleep 2
           done
@@ -46,13 +46,13 @@ jobs:
 
       - name: 📡 Warm-up API with Sample Request (Optional)
         run: |
-          curl -v -X POST http://localhost:1012/users/signup \
+          curl -v -X POST http://localhost:8080/users/signup \
             -H "Content-Type: application/json" \
             -d '{"name":"lily","email":"lily@example.com","user_name":"lilyuser","password":"password123"}'
 
       - name: 🧪 Run Keploy Test Cases
         run: |
-          keploy test -c "curl http://localhost:1012"
+          keploy test -c "curl http://localhost:8080"
 
 
 # name: Keploy API Testing
