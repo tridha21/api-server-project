@@ -66,11 +66,11 @@ jobs:
 
 
 
-      - name: 📡 Warm-up API with Sample Request (Optional)
-        run: |
-          curl -v -X POST http://localhost:8080/users/signup \
-            -H "Content-Type: application/json" \
-            -d '{"name":"lily","email":"lily@example.com","user_name":"lilyuser","password":"password123"}'
+#      - name: 📡 Warm-up API with Sample Request (Optional)
+#        run: |
+#          curl -v -X POST http://localhost:8080/users/signup \
+#            -H "Content-Type: application/json" \
+#            -d '{"name":"lily","email":"lily@example.com","user_name":"lilyuser","password":"password123"}'
 
       - name: 🧪 Run Keploy Test Cases
         run: |
