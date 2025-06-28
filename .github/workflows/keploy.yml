@@ -43,12 +43,18 @@ jobs:
 #          curl -s https://raw.githubusercontent.com/keploy/keploy/main/install.sh | bash
 #          echo "$HOME/.keploy/bin" >> $GITHUB_PATH
 #          export PATH="$HOME/.keploy/bin:$PATH"
-      - name: 🛠️ Install Keploy CLI on Windows
+#      - name: 🛠️ Install Keploy CLI on Windows
+#        run: |
+#          Invoke-WebRequest -Uri "https://github.com/keploy/keploy/releases/latest/download/keploy_windows_amd64.exe" -OutFile "keploy.exe"
+#          $env:Path += ";$PWD"
+#          ./keploy.exe version
+#        shell: pwsh
+      - name: 🛠️ Install Keploy CLI on Ubuntu
         run: |
-          Invoke-WebRequest -Uri "https://github.com/keploy/keploy/releases/latest/download/keploy_windows_amd64.exe" -OutFile "keploy.exe"
-          $env:Path += ";$PWD"
-          ./keploy.exe version
-        shell: pwsh
+          curl -L https://github.com/keploy/keploy/releases/download/v0.1.13/keploy_linux_amd64 -o keploy
+          chmod +x keploy
+          sudo mv keploy /usr/local/bin/keploy
+
 
 
       - name: 📡 Warm-up API with Sample Request (Optional)
