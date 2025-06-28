@@ -19,15 +19,25 @@ jobs:
           docker network create keploy-network || true
           docker run -d -p 8080:1012 --name user-api --network keploy-network user-api
 
-      - name: Wait for server to start
-        run: sleep 15
+      - name: Wait for server port
+        run: |
+          echo "Waiting for server to start..."
+          timeout 60 bash -c 'while ! nc -z localhost 8080; do sleep 2; done'
+
+      - name: Check container logs
+        run: docker logs user-api
+
+      - name: Wait for server health
+        run: |
+          until curl -s http://localhost:8080/actuator/health | grep -q UP; do
+            sleep 2
+          done
 
       - name: Run curl to test user signup
         run: |
-          curl -X POST http://localhost:8080/users/signup \
+          curl -v -X POST http://localhost:8080/users/signup \
             -H "Content-Type: application/json" \
             -d '{"name":"lily","email":"lily@example.com","user_name":"lilyuser","password":"password123"}'
 
       - name: Run Keploy Tests
         run: keploy test
-
