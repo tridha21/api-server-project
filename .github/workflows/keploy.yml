@@ -6,38 +6,98 @@ on:
   pull_request:
 
 jobs:
-  test:
+  keploy-test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: 📥 Checkout Code
         uses: actions/checkout@v3
 
-      - name: Set up Docker
+      - name: 🐳 Build and Run Spring Boot Docker Container
         run: |
           docker build -t user-api .
           docker network create keploy-network || true
-          docker run -d -p 8080:1012 --name user-api --network keploy-network user-api
+          docker run -d --name user-api \
+            --network keploy-network \
+            -p 1012:1012 \
+            user-api
 
-      - name: Wait for server port
+      - name: ⏳ Wait for Server Port to Open (1012)
         run: |
-          echo "Waiting for server to start..."
-          timeout 60 bash -c 'while ! nc -z localhost 8080; do sleep 2; done'
+          echo "Waiting for Spring Boot app to start on port 1012..."
+          timeout 60 bash -c 'while ! nc -z localhost 1012; do sleep 2; done'
 
-      - name: Check container logs
+      - name: 📄 Show Spring Boot Logs
         run: docker logs user-api
 
-      - name: Wait for server health
+      - name: ❤️ Check Server Health (Optional)
+        continue-on-error: true
         run: |
-          until curl -s http://localhost:8080/actuator/health | grep -q UP; do
+          until curl -s http://localhost:1012/actuator/health | grep -q UP; do
+            echo "Waiting for /actuator/health..."
             sleep 2
           done
 
-      - name: Run curl to test user signup
+      - name: 🛠️ Install Keploy CLI
         run: |
-          curl -v -X POST http://localhost:8080/users/signup \
+          curl -s https://raw.githubusercontent.com/keploy/keploy/main/install.sh | bash
+          echo "$HOME/.keploy/bin" >> $GITHUB_PATH
+          export PATH="$HOME/.keploy/bin:$PATH"
+
+      - name: 📡 Warm-up API with Sample Request (Optional)
+        run: |
+          curl -v -X POST http://localhost:1012/users/signup \
             -H "Content-Type: application/json" \
             -d '{"name":"lily","email":"lily@example.com","user_name":"lilyuser","password":"password123"}'
 
-      - name: Run Keploy Tests
-        run: keploy test
+      - name: 🧪 Run Keploy Test Cases
+        run: |
+          keploy test -c "curl http://localhost:1012"
+
+
+# name: Keploy API Testing
+
+# on:
+#   push:
+#     branches: [ main ]
+#   pull_request:
+
+# jobs:
+#   test:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v3
+
+#       - name: Set up Docker
+#         run: |
+#           docker build -t user-api .
+#           docker network create keploy-network || true
+#           docker run -d -p 8080:1012 --name user-api --network keploy-network user-api
+
+#       - name: Wait for server port
+#         run: |
+#           echo "Waiting for server to start..."
+#           timeout 60 bash -c 'while ! nc -z localhost 8080; do sleep 2; done'
+
+#       - name: Check container logs
+#         run: docker logs user-api
+
+#       - name: Wait for server health
+#         run: |
+#           until curl -s http://localhost:8080/actuator/health | grep -q UP; do
+#             sleep 2
+#           done
+
+#       - name: Inspect user-api container
+#         run: docker ps -a
+
+#       - name: Run curl to test user signup
+#         run: |
+#           curl -v -X POST http://localhost:8080/users/signup \
+#             -H "Content-Type: application/json" \
+#             -d '{"name":"lily","email":"lily@example.com","user_name":"lilyuser","password":"password123"}'
+
+#       - name: Run Keploy Tests
+#         run: keploy test
