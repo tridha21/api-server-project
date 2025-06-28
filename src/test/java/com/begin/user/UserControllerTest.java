@@ -8,6 +8,10 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
+
 import java.util.List;
 import java.util.Optional;
 
@@ -30,7 +34,8 @@ public class UserControllerTest {
 
     @Test
     void testLoginSuccess() throws Exception {
-        User user = new User("Test", "test@example.com", "testuser", "pass");
+        //34, 54, 69, 94, 109, 132, 142, 152, 153, 167, 179  new User("Test", "test@example.com", "testuser", "pass");
+        User user = new User("Test", "testuser", "test@example.com", "pass");
         when(userService.getUserByEmail("test@example.com")).thenReturn(Optional.of(user));
 
         mockMvc.perform(post("/users/login")
@@ -48,40 +53,86 @@ public class UserControllerTest {
                 .andExpect(model().attributeExists("user"));
     }
 
-    @Test
-    void testSignupSubmit_NewUser() throws Exception {
-        User user = new User("Test", "test@example.com", "testuser", "pass");
-        when(userService.getUserByEmail(user.getEmail())).thenReturn(Optional.empty());
-        when(userService.saveUser(any(User.class))).thenReturn(user);
+//    @Test
+//    void testSignupSubmit_NewUser() throws Exception {
+//        User user = new User("Test", "test@example.com", "testuser", "pass");
+//        when(userService.getUserByEmail(user.getEmail())).thenReturn(Optional.empty());
+//        when(userService.saveUser(any(User.class))).thenReturn(user);
+//
+//        mockMvc.perform(post("/users/signup")
+//                        .param("name", user.getName())
+//                        .param("email", user.getEmail())
+//                        .param("username", user.getUsername())
+//                        .param("password", user.getPassword()))
+//                .andExpect(status().isOk())
+//                .andExpect(view().name("Home"))
+//                .andExpect(model().attributeExists("message"));
+//    }
+@Test
+void testSignupSubmit_NewUser() throws Exception {
+    User user = new User("Test", "testuser", "test@example.com", "pass");
 
-        mockMvc.perform(post("/users/signup")
-                        .param("name", user.getName())
-                        .param("email", user.getEmail())
-                        .param("username", user.getUsername())
-                        .param("password", user.getPassword()))
-                .andExpect(status().isOk())
-                .andExpect(view().name("Home"))
-                .andExpect(model().attributeExists("message"));
+    when(userService.getUserByEmail(user.getEmail())).thenReturn(Optional.empty());
+    when(userService.saveUser(any(User.class))).thenReturn(user);
+
+    String jsonInput = """
+    {
+      "name": "Test",
+      "email": "test@example.com",
+      "userName": "testuser",
+      "password": "pass"
     }
+    """;
+
+    mockMvc.perform(post("/users/signup")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(jsonInput))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.name").value("Test"))
+            .andExpect(jsonPath("$.email").value("test@example.com"));
+
+}
+
+
+//    @Test
+//    void testSignupSubmit_ExistingUser() throws Exception {
+//        User user = new User("Test", "test@example.com", "testuser", "pass");
+//        when(userService.getUserByEmail(user.getEmail())).thenReturn(Optional.of(user));
+//
+//        mockMvc.perform(post("/users/signup")
+//                        .param("name", user.getName())
+//                        .param("email", user.getEmail())
+//                        .param("username", user.getUsername())
+//                        .param("password", user.getPassword()))
+//                .andExpect(status().isOk())
+//                .andExpect(view().name("Home"))
+//                .andExpect(model().attributeExists("message"));
+//    }
 
     @Test
     void testSignupSubmit_ExistingUser() throws Exception {
-        User user = new User("Test", "test@example.com", "testuser", "pass");
+        User user =new User("Test", "testuser", "test@example.com", "pass");
         when(userService.getUserByEmail(user.getEmail())).thenReturn(Optional.of(user));
 
-        mockMvc.perform(post("/users/signup")
-                        .param("name", user.getName())
-                        .param("email", user.getEmail())
-                        .param("username", user.getUsername())
-                        .param("password", user.getPassword()))
-                .andExpect(status().isOk())
-                .andExpect(view().name("Home"))
-                .andExpect(model().attributeExists("message"));
+        String jsonInput = """
+    {
+      "name": "Test",
+      "email": "test@example.com",
+      "userName": "testuser",
+      "password": "pass"
     }
+    """;
+
+        mockMvc.perform(post("/users/signup")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(jsonInput))
+                .andExpect(status().isConflict()); // Expect conflict status
+    }
+
 
     @Test
     void testLoginInvalidPassword() throws Exception {
-        User user = new User("Test", "test@example.com", "testuser", "pass");
+        User user = new User("Test", "testuser", "test@example.com", "pass");
         when(userService.getUserByEmail("test@example.com")).thenReturn(Optional.of(user));
 
         mockMvc.perform(post("/users/login")
@@ -104,7 +155,7 @@ public class UserControllerTest {
 
     @Test
     void testGetAllUsers() throws Exception {
-        List<User> users = List.of(new User("A", "a@example.com", "a", "a"));
+        List<User> users = List.of(new User("Test", "testuser", "test@example.com", "pass"));
         when(userService.getAllUsers()).thenReturn(users);
 
         mockMvc.perform(get("/users"))
@@ -114,7 +165,7 @@ public class UserControllerTest {
 
     @Test
     void testGetUserById() throws Exception {
-        User user = new User("A", "a@example.com", "a", "a");
+        User user = new User("Test", "testuser", "test@example.com", "pass");
         when(userService.getUserById(1)).thenReturn(Optional.of(user));
 
         mockMvc.perform(get("/users/1"))
@@ -124,8 +175,10 @@ public class UserControllerTest {
 
     @Test
     void testUpdateUser() throws Exception {
-        User oldUser = new User("Old", "old@example.com", "old", "old");
-        User newUser = new User("New", "new@example.com", "new", "new");
+        User oldUser = new User("Old", "old", "old@example.com", "old");
+        User newUser = new User("New", "new", "new@example.com", "new");
+//        User oldUser = new User("Old", "old@example.com", "old", "old");
+//        User newUser = new User("New", "new@example.com", "new", "new");
 
         when(userService.getUserById(1)).thenReturn(Optional.of(oldUser));
         when(userService.saveUser(any(User.class))).thenReturn(newUser);
@@ -139,7 +192,9 @@ public class UserControllerTest {
 
     @Test
     void testSignupAPI_NewUser() throws Exception {
-        User user = new User("New", "new@example.com", "new", "pass");
+       User user= new User("Test", "testuser", "test@example.com", "pass");
+
+        //User user = new User("New", "new@example.com", "new", "pass");
         when(userService.getUserByEmail(user.getEmail())).thenReturn(Optional.empty());
         when(userService.saveUser(any(User.class))).thenReturn(user);
 

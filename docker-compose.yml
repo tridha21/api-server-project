@@ -1,0 +1,15 @@
+version: "3.9"
+services:
+  user-api:
+    image: user-api
+    build:
+      context: .
+    container_name: user-api-container
+    networks:
+      - keploy-network
+    ports:
+      - "8085:8080"
+
+networks:
+  keploy-network:
+    driver: bridge

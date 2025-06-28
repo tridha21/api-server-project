@@ -9,6 +9,8 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+//
+    @JsonProperty("name")
     @Column(name = "name",nullable = false)
     private String name;
 
@@ -19,10 +21,13 @@ public class User {
     @Column(name = "user_name", nullable = false, unique = true)
     private String username;
 
-
+    //
+    @JsonProperty("email")
     @Column(name = "email",nullable = false,unique = true)
     private String email;
 
+    //
+    @JsonProperty("password")
     @Column(name = "password", nullable = false)
     private String password;
 

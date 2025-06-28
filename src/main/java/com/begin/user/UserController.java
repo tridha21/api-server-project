@@ -35,11 +35,17 @@ public class UserController {
     public UserController(UserService userService) {
     }
 
-    @GetMapping("/UI_Page")
-    public String UI_Page(Model model) {
+//    @GetMapping("/UI_Page")
+//    public String UI_Page(Model model) {
+//        model.addAttribute("user", new User());
+//        return "Home";
+//    }
+    @GetMapping("/users/UI_Page")
+    public String uiPage(Model model) {
         model.addAttribute("user", new User());
-        return "Home";
+        return "Home"; // This should match your template name (Home.html)
     }
+
 
     @PostMapping("/signup")
     public String signupSubmit(@ModelAttribute User user, Model model) {
