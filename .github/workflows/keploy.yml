@@ -30,13 +30,13 @@ jobs:
       - name: 📄 Show Spring Boot Logs
         run: docker logs user-api
 
-      - name: ❤️ Check Server Health (Optional)
-        continue-on-error: true
-        run: |
-          until curl -s http://localhost:8080/actuator/health | grep -q UP; do
-            echo "Waiting for /actuator/health..."
-            sleep 2
-          done
+#      - name: ❤️ Check Server Health (Optional)
+#        continue-on-error: true
+#        run: |
+#          until curl -s http://localhost:8080/actuator/health | grep -q UP; do
+#            echo "Waiting for /actuator/health..."
+#            sleep 2
+#          done
 
       - name: 🛠️ Install Keploy CLI
         run: |
