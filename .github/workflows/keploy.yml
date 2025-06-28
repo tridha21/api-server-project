@@ -13,6 +13,15 @@ jobs:
       - name: 📥 Checkout Code
         uses: actions/checkout@v3
 
+      - name: 🐬 Start MySQL Container
+        run: |
+            docker network create keploy-network || true
+            docker run --name mysql-db \
+              --network keploy-network \
+              -e MYSQL_ROOT_PASSWORD=root \
+              -e MYSQL_DATABASE=User \
+              -p 3306:3306 -d mysql:8.0    
+
       - name: 🐳 Build and Run Spring Boot Docker Container
         run: |
           docker build -t user-api .
